@@ -577,8 +577,7 @@ Builder.load_string(
             width: 1
             rounded_rectangle:
                 (self.x, self.y, self.width, self.height,\
-                root._radius, root._radius, root._radius, root._radius,\
-                self.height)
+                root._radius, root._radius, root._radius, root._radius, self.height)
 
     theme_text_color: 'Custom'
     text_color:
