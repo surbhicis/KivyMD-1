@@ -734,7 +734,7 @@ class MDFileManager(ThemableBehavior, FloatLayout):
 
     def select_dir_or_file(self, path):
         """Called by tap on the name of the directory or file."""
-
+        print('is file there ........................', os.path.isfile(path))
         if os.path.isfile(path):
             self.history = []
             self.select_path(path)
@@ -745,15 +745,26 @@ class MDFileManager(ThemableBehavior, FloatLayout):
 
     def back(self):
         """Returning to the branch down in the directory tree."""
-
+        print('self.history............................', self.history)
         if len(self.history) == 1:
             path, end = os.path.split(self.history[0])
+            print('path, end.............................', path, end)
             if end == "":
                 self.exit_manager(1)
                 return
             self.history[0] = path
         else:
-            self.history.pop()
+            from kivy.utils import platform
+            if platform == 'android':
+                print('in case of andorid file manager...................')
+                try:
+                    self.history.pop()
+                except IndexError:
+                    print('exception occures.............................')
+                    self.exit_manager(1)
+                    return
+            else:
+                self.history.pop()
             path = self.history[-1]
         self.history_flag = False
         self.select_dir_or_file(path)
